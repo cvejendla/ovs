@@ -399,12 +399,12 @@ add_neighbor_flows(struct controller_ctx *ctx,
                    struct hmap *flow_table)
 {
     struct ofpbuf ofpacts;
-    struct match match;
-    match_init_catchall(&match);
     ofpbuf_init(&ofpacts, 0);
 
     const struct sbrec_mac_binding *b;
     SBREC_MAC_BINDING_FOR_EACH (b, ctx->ovnsb_idl) {
+        struct match match;
+        match_init_catchall(&match);
         consider_neighbor_flow(lports, b, &ofpacts, &match, flow_table);
     }
 
